@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.env
+.venv/
+venv/
+env/
+
+# Django
+*.log
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# Migrations cache
+*/migrations/__pycache__/
+
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# dotenv
+.env
+
+# Tests
+.coverage
+htmlcov/
+
+# Celery / Redis
+celerybeat-schedule
+celerybeat.pid
+
+# ngrok
+.ngrok*
