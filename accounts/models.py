@@ -13,11 +13,11 @@ class CustomUser(AbstractUser):
 
     phone_number = models.CharField(max_length=20, unique=True, verbose_name="Telefon nomeri")
     
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
 
     full_name = models.CharField(max_length=50)
 
-    role = models.CharField()
+    role = models.CharField(max_length=30, choices=ROLE_CHOICES)
 
     is_active = models.BooleanField(default=False)
 
@@ -42,4 +42,12 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class Profile(models.Model):
+
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profiles')
+    avatar = models.ImageField(upload_to="images/avatars/", null=True, blank=True)
+    birthday = models.DateTimeField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
 
