@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Table
 
-# Register your models here.
+
+@admin.register(Table)
+class ReservationAdmin(admin.ModelAdmin):
+
+    list_display = ('number', 'capacity', 'location', 'is_active')
+    

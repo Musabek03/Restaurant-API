@@ -16,7 +16,7 @@ class Reservation(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name="reservations")
     date = models.DateField()
     time = models.TimeField()
-    guest_count = models.PositiveBigIntegerField()
+    guest_count = models.PositiveIntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     comment = models.TextField(max_length=500, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
