@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema
+from .permissions import IsOwnerOrAdmin
 
 
 @extend_schema(tags=['Reservations'])
@@ -13,6 +14,16 @@ class ReservationViewSet(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
+    permission_classes = [IsOwnerOrAdmin]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return Reservation.objects.all()
+        return Reservation.objects.filter(customer=user)
+
+    def perform_create(self, serializer):
+        serializer.save(customer=self.request.user)
 
 
     @action(detail=True, methods=['post'])

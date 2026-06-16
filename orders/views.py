@@ -9,7 +9,7 @@ from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema
 from django.shortcuts import get_object_or_404
 from django.db.models import Sum
-
+from .permissions import IsOwnerOrAdmin
 
 
 @extend_schema(tags=['Orders'])
@@ -18,6 +18,17 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
+    permission_classes = [IsOwnerOrAdmin]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_staff:
+            return Order.objects.all()
+        return Order.objects.filter(customer=user)
+    
+
+    def perform_create(self, serializer):
+        serializer.save(customer=self.request.user)
 
     @action(detail=True, methods=['patch'])
     def status(self, request, pk=None):

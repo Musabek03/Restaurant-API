@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 
-router.register(r"tables", ReviewViewSet, basename='table')
+router.register(r"reviews", ReviewViewSet, basename='review')
 
 
 urlpatterns = [

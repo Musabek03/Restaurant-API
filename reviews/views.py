@@ -8,10 +8,10 @@ from rest_framework import permissions
 
 class ReviewViewSet(viewsets.ModelViewSet):
     
-    model = Review.objects.all()
+    queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
-    permission_classes = [IsOwnerReadOnly]
+    permission_classes = [IsOwnerReadOnly, permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         
