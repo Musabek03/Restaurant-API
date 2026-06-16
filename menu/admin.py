@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import MenuItem
+from .models import MenuItem,Category
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'slug', 'is_active')
 
 
 @admin.register(MenuItem)

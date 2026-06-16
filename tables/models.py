@@ -7,5 +7,7 @@ class Table(models.Model):
     location = models.CharField(max_length=80)
     is_active = models.BooleanField(default=True)
 
-
+    def __str__(self):
+        return f"{self.number}-nomerli stol. Siyimliligi {self.capacity} adam"
+    
 
